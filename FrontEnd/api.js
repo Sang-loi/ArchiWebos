@@ -34,21 +34,51 @@ fetch('http://localhost:5678/api/categories')
     const filter = document.querySelector('.filter ul');
     table.forEach(button => {
         const li = document.createElement('li')
-
         li.textContent = button.name ;
-
         filter.appendChild(li);
-    }
-
+        }
     )
 
+    filter.addEventListener('click', (event) => {
+        if (event.target.tagName === 'LI') {
+          const selectedCategory = event.target.textContent;
+          filterWorksByCategory(selectedCategory);
+        }
+      });
+      
   }
-
   )
 
+// Fonction pour filtrer les travaux par catégorie
+function filterWorksByCategory(category) {
+fetch('http://localhost:5678/api/works')
+  .then(response => response.json())
+  .then(data => {
+    const gallery = document.querySelector('.gallery');
 
+    // Supprimer les travaux existants
+    gallery.innerHTML = '';
 
+    // Ajouter les travaux de la catégorie sélectionnée
+    data.forEach(travail => {
+      if (category === 'Tous' || travail.category.name === category) {
+        const figure = document.createElement('figure');
+        const image = document.createElement('img');
+        const figcaption = document.createElement('figcaption');
 
+        image.src = travail.imageUrl;
+        image.alt = travail.titre;
+        figcaption.textContent = travail.title;
 
+        figure.appendChild(image);
+        figure.appendChild(figcaption);
+        gallery.appendChild(figure);
+      }
+    });
+  })
+  .catch(error => {
+    console.error('Erreur lors de la récupération des travaux:', error);
+  });
+}
 
 

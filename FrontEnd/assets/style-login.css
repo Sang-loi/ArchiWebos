@@ -188,36 +188,42 @@ footer nav ul {
 
 /** nouveau CSS **/
 
-.filter ul{
-	display : flex;
-	justify-content : center;
-	gap : 10px ;
-	margin-bottom : 40px; 
-
-}
-
-.filter li{
-	font-family: Syne;
-	font-size: 16px;
-	font-weight: 700;
-	line-height: 19px;
-	letter-spacing: 0em;
-	text-align: center;
-	color : rgba(29, 97, 84, 1);
-	border : 1px solid;
-	border-radius: 60px;
-	padding : 10px;
-}
-
-.filter li:hover{
-	background-color:rgba(29, 97, 84, 1);
-	color: rgba(255, 255, 255, 1);
-;
-}
-
 html{
 	background: rgba(255, 254, 248, 1);
 }
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h2{
+    text-align: center;
+}
+
+section{
+    display: flex;
+    justify-content: center;
+}
+
+section input{
+    margin-top : 5px;
+    margin-bottom: 30px;
+    box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+    border: transparent;
+    height: 40px;
+    width: 379px;
+}
+
+section .connection{
+    text-align: center;
+}
+
+section .forget{
+    text-align: center;
+}
+
 
 
 
