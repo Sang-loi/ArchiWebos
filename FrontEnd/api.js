@@ -41,6 +41,12 @@ fetch('http://localhost:5678/api/categories')
 
     filter.addEventListener('click', (event) => {
         if (event.target.tagName === 'LI') {
+          const allFilters = filter.querySelectorAll('.filter ul li');
+          allFilters.forEach(filterItem => filterItem.classList.remove('active'));
+
+          event.target.classList.add('active');
+
+
           const selectedCategory = event.target.textContent;
           filterWorksByCategory(selectedCategory);
         }

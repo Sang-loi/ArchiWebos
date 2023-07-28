@@ -196,6 +196,7 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: center;
+	margin-bottom: 200px;
 }
 
 h2{
@@ -220,8 +221,12 @@ section .connection{
     text-align: center;
 }
 
+section .forget label{
+	border-bottom: solid 1px;
+}
+
 section .forget{
-    text-align: center;
+	text-align: center;
 }
 
 

@@ -193,7 +193,6 @@ footer nav ul {
 	justify-content : center;
 	gap : 10px ;
 	margin-bottom : 40px; 
-
 }
 
 .filter li{
@@ -209,14 +208,22 @@ footer nav ul {
 	padding : 10px;
 }
 
-.filter li:hover{
+.filter .active{
 	background-color:rgba(29, 97, 84, 1);
-	color: rgba(255, 255, 255, 1);
-;
+	color : rgba(255, 255, 255, 1);
 }
 
 html{
 	background: rgba(255, 254, 248, 1);
+}
+
+a{
+	color : black ;
+	text-decoration: none;
+}
+
+a:hover{
+	color: #B1663C;
 }
 
 
