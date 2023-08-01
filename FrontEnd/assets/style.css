@@ -47,7 +47,7 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
-body {
+.main-container {
 	max-width: 1140px;
 	margin:auto;
 	font-family: 'Work Sans' ;
@@ -224,6 +224,31 @@ a{
 
 a:hover{
 	color: #B1663C;
+}
+
+.login{
+	background-color : black;
+    color : white;
+    padding : 10px;
+    text-align : center;
+    width : 100%;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+	gap:20px;
+	font-family: 'Work Sans' ;
+}
+
+.edit-mode{
+	display: flex;
+    gap: 10px;
+}
+
+.publish{
+	border-radius: 50px;
+	background-color: white;
+	color: black;
+	padding: 12px 23px;
 }
 
 
