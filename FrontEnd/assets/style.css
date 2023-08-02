@@ -251,5 +251,75 @@ a:hover{
 	padding: 12px 23px;
 }
 
+.publish:hover{
+	color: black;
+	
+}
+
+.modal{
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top:0;
+	left:0;
+	width:	100%;
+	height:	100%;
+	background: rgba(0, 0, 0, 0.8);
+}
+
+.modal-wrapper{
+	overflow: auto;
+	width: 630px;
+	padding: 30px;
+	background-color: rgba(255, 255, 255, 1);
+
+	font-family: 'Work Sans';
+	font-size: 26px;
+	font-weight: 400;
+	line-height: 30px;
+	letter-spacing: 0em;
+	text-align: center;
+
+}
+
+.add{
+	text-align: center;
+	border-top: 1px rgba(179, 179, 179, 1) solid;
+	margin: 0px 50px;
+}
+
+.add input{
+	font-size: 14px;
+	line-height: 17px;
+	letter-spacing: 0em;
+	text-align: center;
+	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+    border: transparent;
+    height: 40px;	
+	padding: 10px 20px;
+
+	font-family: 'Syne';
+    font-weight: 700;
+    color: white;
+    background-color: #1D6154;
+    margin: 1em auto;
+}
+
+.delete-gallery{
+	text-align: center;
+
+
+}
+
+.delete-gallery label{
+	font-family: 'Syne';
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 16.8px;
+	text-align: center;
+	color: rgba(214, 83, 83, 1);
+}
+
 
 

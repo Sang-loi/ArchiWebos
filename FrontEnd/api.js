@@ -117,16 +117,20 @@ document.addEventListener('DOMContentLoaded', () => {
     editModeContainer.className = 'edit-mode';
 
     // Créer l'élément <div> pour la publication des changements avec la classe "publish"
-    const publishContainer = document.createElement('div');
+    const publishContainer = document.createElement('a');
+
+    // Ajout lien modal
+    const modal = "#modal1";
+    publishContainer.setAttribute("href", modal);
     publishContainer.textContent = 'publier les changements';
-    publishContainer.className = 'publish';
+    publishContainer.className = 'publish js-modal';
 
     // Ajouter les éléments <div> dans le <header> (sous la classe "login")
     loginDiv.appendChild(editModeContainer);
     loginDiv.appendChild(publishContainer);
     header.insertBefore(loginDiv, header.firstChild);
   } else {
-    // Si le token n'est pas présent, le bouton reste "Login"
+    // Si le token n'est pas présent, le bouton reste "login"
     loginButton.textContent = 'login';
     // Ajouter un événement au bouton "Login" pour gérer la connexion
     loginButton.addEventListener('click', handleLogin);
@@ -143,3 +147,47 @@ function handleLogout() {
 function handleLogin() {
   window.location.href = 'login.html';
 }
+
+//3.1
+// Déclaration de la variable "modal" pour stocker la référence de la modal actuellement ouverte
+let modal = null;
+
+// Fonction pour ouvrir la modal
+const openModal = function (e) {
+  e.preventDefault();
+  const target = document.querySelector(e.target.getAttribute('href'));
+  target.style.display = null;
+  target.removeAttribute('aria-hidden');
+  target.setAttribute('aria-modal', 'true');
+  modal = target;
+
+  // Ajout des événements pour gérer la fermeture de la modal
+  modal.addEventListener('click', closeModal);
+  modal.querySelector('.js-modal-close').addEventListener('click', closeModal);
+  modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation);
+};
+
+// Fonction pour fermer la modal
+const closeModal = function (e) {
+  if (modal === null) return;
+  e.preventDefault();
+  modal.style.display = 'none';
+  modal.setAttribute('aria-hidden', 'true');
+  modal.removeAttribute('aria-modal');
+
+  // Suppression des événements ajoutés lors de l'ouverture de la modal
+  modal.removeEventListener('click', closeModal);
+  modal.querySelector('.js-modal-close').removeEventListener('click', closeModal);
+  modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation);
+  modal = null; // Réinitialisation de la variable "modal" à null
+};
+
+// Fonction pour arrêter la propagation des événements (notamment pour éviter la fermeture de la modal lorsque son contenu est cliqué)
+const stopPropagation = function (e) {
+  e.stopPropagation();
+};
+
+// Ajout des écouteurs d'événements sur tous les éléments avec la classe "js-modal"
+document.querySelectorAll('.js-modal').forEach(a => {
+  a.addEventListener('click', openModal);
+});
