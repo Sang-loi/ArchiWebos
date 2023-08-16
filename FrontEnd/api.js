@@ -148,10 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ajoutez le style "display: none" à l'élément
     filterDiv.style.display = 'none';
 
-    
-    
-
-
     // Créer et ajouter l'élément <div> avec la classe "login" au <header> (uniquement si le token est présent)
     const header = document.querySelector('body');
     const loginDiv = document.createElement('div');
@@ -197,7 +193,6 @@ function handleLogin() {
 } 
 
 //3.1
-
 document.addEventListener("DOMContentLoaded", function () {
   // Sélectionner le lien qui ouvrira le modal
   const openModalLink = document.querySelector(".edit-mode-portfolio");
@@ -270,13 +265,33 @@ fetch('http://localhost:5678/api/works')
       arrowsUpDownLeftRightIcon.className = 'fa-solid fa-arrows-up-down-left-right';
 
       // Créer une div pour le premier icône (arrowsUpDownLeftRightIcon)
-      const arrowsUpDownLeftRightIconDiv = document.createElement('a');
+      const arrowsUpDownLeftRightIconDiv = document.createElement('button');
       arrowsUpDownLeftRightIconDiv.classList.add('arrows-icon-container'); // Ajouter la classe "arrows-icon-container" à la div
       
 
       // Créer une div pour le deuxième icône (trashCanIcon)
-      const trashCanIconDiv = document.createElement('a');
-      trashCanIconDiv.classList.add('trash-icon-container'); // Ajouter la classe "trash-icon-container" à la div
+      const trashCanIconDiv = document.createElement('button');
+      trashCanIconDiv.classList.add('trash-icon-container');
+
+      //3.2 (début)
+      trashCanIconDiv.addEventListener('click', () => {
+        const figureModal = trashCanIconDiv.closest('figure');
+        const workId = parseInt(figure.dataset.workId);
+      
+        // Appeler la fonction pour supprimer le travail dans le back-end
+        deleteWork(workId);
+      
+        // Supprimer la figure de la modal
+        figureModal.remove();
+      
+        // Supprimer la figure correspondante dans la section "gallery"
+        const gallery = document.querySelector('.gallery');
+        const matchingGalleryFigure = gallery.querySelector(`figure[data-work-id="${workId}"]`);
+        if (matchingGalleryFigure) {
+          matchingGalleryFigure.remove();
+        }
+      });
+      //3.2 (fin)
 
       const trashCanIcon = document.createElement('i');
       trashCanIcon.className = 'fa-solid fa-trash-can';
@@ -306,46 +321,113 @@ fetch('http://localhost:5678/api/works')
     console.error('Erreur lors de la récupération des travaux :', error);
   });
 
-//3.2 Suppression de travaux existants
+// Modal d'ajout de photo
 
 document.addEventListener("DOMContentLoaded", function () {
-  // ... Votre code existant ...
+  const addButton = document.querySelector(".add");
 
-  // Sélectionnez tous les boutons de suppression (poubelle) générés en JS
-  const deleteButtons = document.querySelectorAll('.trash-icon-container');
+  addButton.addEventListener("click", function () {
+    // Modifier le titre de la modal
+    const modalTitle = document.querySelector("h3");
+    modalTitle.innerHTML = "Ajout photo";
 
-  // Ajouter un gestionnaire d'événement de clic pour chaque bouton de suppression
-  deleteButtons.forEach(button => {
-    button.addEventListener('click', handleDeleteWork);
+    // Cacher la galerie existante
+    const modalGallery = document.querySelector(".modal-gallery");
+    modalGallery.style.display = "none";
+
+    // Modifier le formulaire
+    const form = document.querySelector("form");
+    form.setAttribute("action", "http://localhost:5678/api/works");
+
+    const addPictureDiv = document.createElement("div");
+    addPictureDiv.className = "add-picture";
+
+    const addPictureIcon = document.createElement("i");
+    addPictureIcon.className = "fa-regular fa-image";
+
+    const addPictureInput = document.createElement("input");
+    addPictureInput.type = "file";
+    addPictureInput.name = "image";
+    addPictureInput.accept = "image/jpeg,image/png";
+    addPictureInput.value = "+ Ajouter image";
+
+    const addPictureDescription = document.createElement("a");
+    addPictureDescription.textContent = "jpg, png : 4mo max";
+
+    addPictureDiv.appendChild(addPictureIcon);
+    addPictureDiv.appendChild(addPictureInput);
+    addPictureDiv.appendChild(addPictureDescription);
+
+    const titleLabel = document.createElement("label");
+    titleLabel.setAttribute("for", "title");
+    titleLabel.textContent = "Titre";
+
+    const titleInput = document.createElement("input");
+    titleInput.type = "text";
+    titleInput.name = "title";
+    titleInput.id = "title";
+
+    const categoryLabel = document.createElement("label");
+    categoryLabel.setAttribute("for", "category");
+    categoryLabel.textContent = "Catégorie";
+
+    const categorySelect = document.createElement("select");
+    categorySelect.name = "category";
+    categorySelect.id = "category";
+
+    // Fetch pour récupérer les catégories depuis l'API
+    fetch("http://localhost:5678/api/categories")
+      .then(response => response.json())
+      .then(categories => {
+        categories.forEach(category => {
+          const option = document.createElement("option");
+          option.value = category.id;
+          option.textContent = category.name;
+          categorySelect.appendChild(option);
+        });
+      });
+
+    const submitButton = document.createElement("button");
+    submitButton.type = "submit";
+    submitButton.textContent = "Valider";
+
+    form.innerHTML = ""; // Vider le formulaire existant
+    form.appendChild(addPictureDiv);
+    form.appendChild(titleLabel);
+    form.appendChild(titleInput);
+    form.appendChild(categoryLabel);
+    form.appendChild(categorySelect);
+    form.appendChild(submitButton);
   });
 });
 
-// Fonction pour gérer la suppression d'un travail
-function handleDeleteWork(event) {
-  // Récupérer l'ID du travail associé au bouton de suppression
-  const figureElement = event.target.closest('figure');
-  const workId = figureElement.dataset.workId; // Si vous avez stocké l'ID du travail dans un attribut personnalisé, utilisez cette méthode
+//3.2 bis : Suppression de travaux existants
 
-  // Construire l'URL de la requête fetch pour supprimer le travail
-  const apiUrl = `http://localhost:5678/api/works/${workId}`;
+function deleteWork(workId) {
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTg3NDkzOSwiZXhwIjoxNjUxOTYxMzM5fQ.JGN1p8YIfR-M-5eQ-Ypy6Ima5cKA4VbfL2xMr2MgHm4';
 
-  // Créer la requête fetch avec la méthode DELETE
-  fetch(apiUrl, {
+  fetch(`http://localhost:5678/api/works/${workId}`, {
     method: 'DELETE',
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`, // N'oubliez pas d'inclure le token d'authentification si nécessaire
-    },
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('La suppression du travail a échoué.');
+      'Authorization': `Bearer ${token}`
     }
-    // Supprimer l'élément figure associé du DOM après avoir reçu la confirmation de la suppression de l'entrée en base de données
-    const gallery = document.querySelector('.gallery');
-    gallery.removeChild(figureElement);
   })
-  .catch(error => {
-    console.error('Erreur lors de la suppression du travail:', error);
-  });
-}
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Work deleted successfully:', data);
+    })
+    .catch(error => {
+      console.error('Error deleting work:', error);
+    });
+};
+
+
+
+//3.3 Envoi d’un nouveau projet au back-end via le formulaire de la modale
+
+

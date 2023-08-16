@@ -14,17 +14,34 @@
 <body>
 	<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display:none;" >
 		<div class="modal-wrapper js-modal-stop">
-			<button class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
-			<h3>Galerie photo</h3>
-			<div class="modal-gallery"></div>
-			<form action="" method="get">
-				<div class="add">
-					<input type="submit" value="Ajouter une photo">
+			<div class="gallery-modal" style="display:none;">
+				<div class="modal-close">
+					<button class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
 				</div>
-				<div class="delete-gallery">
-					<label for="delete-gallery">Supprimer la galerie</label>
+					<h3>Galerie photo</h3>
+				<div class="modal-gallery"></div>
+				<form action="" method="get">
+					<button class="add">Ajouter une photo</button>
+					<div class="delete-gallery">
+						<label for="delete-gallery">Supprimer la galerie</label>
+					</div>
+				</form>
+			</div>
+			<div class="adding-modal" >
+				<div class="modal-close">
+					<button class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
 				</div>
-			</form>
+				<div class="modal-backwrad">
+					<button><i class="fa-solid fa-arrow-left"></i></button>
+				</div>				
+				<h3>Ajout photo</h3>
+				<form>
+					<button></button>
+					<label for="title">Titre</label>
+					<label for="category">Catégorie</label>
+					<button></button>
+				</form>
+			</div>
 		</div>
 	</aside>
 	<div class="main-container">

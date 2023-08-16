@@ -286,13 +286,9 @@ a:hover{
 }
 
 .add{
-	text-align: center;
-	border-top: 1px rgba(179, 179, 179, 1) solid;
+	border-top: 1px rgba(179, 179, 179, 1) solid black;
 	margin: 0px 50px;
 	padding-top: 25px;
-}
-
-.add input{
 	font-size: 14px;
 	line-height: 17px;
 	letter-spacing: 0em;
@@ -307,12 +303,11 @@ a:hover{
     color: white;
     background-color: #1D6154;
     margin: 1em auto;
+	border-radius: 60px;
 }
 
 .delete-gallery{
 	text-align: center;
-
-
 }
 
 .delete-gallery label{
@@ -369,7 +364,7 @@ a:hover{
     margin: 0 0 50px 0;
 }
 
-.modal-wrapper button{
+.modal-wrapper .modal-close button{
     background-color: transparent;
     border: black;
     color: black;
@@ -409,6 +404,10 @@ a:hover{
 	display: none;
 }
 
+.arrows-icon-container:hover{
+	color: white;
+}
+
 .symbols-container:hover .arrows-icon-container{
 	display:block;
 
@@ -420,6 +419,37 @@ a:hover{
     border-radius: 2px;
     padding: 0px 5px;
 }
+
+.trash-icon-container:hover{
+	color: white;
+}
+
+.symbols-container button{
+    position: initial;
+	color: white;
+    background: rgba(0, 0, 0, 1);
+    border-radius: 2px;
+    padding: 3px 4px;
+	font-size: 11px;
+}
+
+.modal-wrapper form{
+	border-top: 1px solid rgba(179, 179, 179, 1);
+	padding-top: 15px;
+}
+
+.modal-backwrad button{
+	background-color: transparent;
+    border: black;
+    color: black;
+    position: relative;
+    font-size: 21px;
+    right: 360px;
+    top: 0px;
+	top: -30px;
+}
+
+
 
 
 
