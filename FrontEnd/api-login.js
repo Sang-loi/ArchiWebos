@@ -6,20 +6,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
   form.addEventListener("submit", function (event) {
     event.preventDefault();
-    const email = emailInput.value;
-    const password = passwordInput.value;
 
     // Création de l'objet avec les informations d'authentification
     const userCredentials = {
-      email: email,
-      password: password
+      email: emailInput.value,
+      password: passwordInput.value
     };
-
+    
     // Envoi des informations d'authentification via une requête POST
     fetch("http://localhost:5678/api/users/login", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*" 
       },
       body: JSON.stringify(userCredentials)
     })

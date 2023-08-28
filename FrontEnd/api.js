@@ -14,7 +14,7 @@ fetch('http://localhost:5678/api/works')
       const figcaption = document.createElement('figcaption');
 
       image.src = travail.imageUrl;
-      image.alt = travail.titre;
+      image.alt = travail.title;
       figcaption.textContent = travail.title;
 
       figure.appendChild(image);
@@ -26,7 +26,7 @@ fetch('http://localhost:5678/api/works')
     console.error('Erreur lors de la récupération des travaux:', error);
   });
 
-// Etape 1.2
+// Etape 1.2 : Réalisation du filtre des travaux
 
 fetch('http://localhost:5678/api/categories')
   .then(response => response.json())
@@ -43,18 +43,13 @@ fetch('http://localhost:5678/api/categories')
         if (event.target.tagName === 'LI') {
           const allFilters = filter.querySelectorAll('.filter ul li');
           allFilters.forEach(filterItem => filterItem.classList.remove('active'));
-
           event.target.classList.add('active');
-
-
           const selectedCategory = event.target.textContent;
           filterWorksByCategory(selectedCategory);
         }
-      });
-      
-  }
+      }); 
+    }
   )
-
 // Fonction pour filtrer les travaux par catégorie
 function filterWorksByCategory(category) {
 fetch('http://localhost:5678/api/works')
@@ -88,9 +83,8 @@ fetch('http://localhost:5678/api/works')
 }
 
 
-//Etape 2.2
+//Etape 2.2 : Authentification de l’utilisateur
 
-// Vérification de la présence du token dans le localstorage
 const token = localStorage.getItem('token');
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -117,9 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
     editModeContainerIntroduction.appendChild(editModeTextIntroduction);
     editModeContainerIntroduction.className = 'edit-mode-introduction';
     introductionSection.insertAdjacentElement('afterend', editModeContainerIntroduction);
-
-
-
 
     // Création de l'icône d'édition pour la section "portfolio"
     const editIconPortfolio = document.createElement('i');
@@ -192,7 +183,7 @@ function handleLogin() {
   window.location.href = 'login.html';
 } 
 
-//3.1
+//3.1 : Ajout de la fenêtre modale
 document.addEventListener("DOMContentLoaded", function () {
   // Sélectionner le lien qui ouvrira le modal
   const openModalLink = document.querySelector(".edit-mode-portfolio");
@@ -242,7 +233,8 @@ fetch('http://localhost:5678/api/works')
 
     // Ajouter les travaux récupérés
     data.forEach(travail => {
-      const figure = document.createElement('figure');      
+      const figure = document.createElement('figure');   
+      figure.setAttribute(data.id, travail.id); // Ajoute l'attribut dataId avec la valeur de l'ID du travail   
 
       const imageAndCaptionContainer = document.createElement('div'); // Créer la div contenant l'image et le figcaption
 
@@ -277,9 +269,7 @@ fetch('http://localhost:5678/api/works')
       trashCanIconDiv.addEventListener('click', () => {
         const figureModal = trashCanIconDiv.closest('figure');
         const workId = parseInt(figure.dataset.workId);
-      
-        // Appeler la fonction pour supprimer le travail dans le back-end
-        deleteWork(workId);
+        console.log(workId)
       
         // Supprimer la figure de la modal
         figureModal.remove();
@@ -399,17 +389,47 @@ document.addEventListener("DOMContentLoaded", function () {
     form.appendChild(categorySelect);
     form.appendChild(submitButton);
   });
+
+// Sélection de l'élément du bouton de retour dans la modal
+const backButton = document.querySelector(".modal-backwrad button");
+
+// Sélection de l'élément de la galerie dans la modal
+const modalGallery = document.querySelector(".modal-gallery");
+
+// Sélection de l'élément du formulaire d'ajout dans la modal
+const addingModal = document.querySelector(".adding-modal");
+
+// Ajout d'un gestionnaire d'événement au clic sur le bouton "Ajouter une photo"
+addButton.addEventListener("click", function () {
+  // Masquer la galerie dans la modal en modifiant son style d'affichage
+  modalGallery.style.display = "none";
+
+  // Afficher le formulaire d'ajout dans la modal en modifiant son style d'affichage
+  addingModal.style.display = "block";
+});
+
+// Ajout d'un gestionnaire d'événement au clic sur le bouton de retour
+backButton.addEventListener("click", function () {
+  // Masquer le formulaire d'ajout dans la modal en modifiant son style d'affichage
+  addingModal.style.display = "none";
+
+  // Afficher la galerie dans la modal en modifiant son style d'affichage
+  modalGallery.style.display = "block";
+});
 });
 
 //3.2 bis : Suppression de travaux existants
 
 function deleteWork(workId) {
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTg3NDkzOSwiZXhwIjoxNjUxOTYxMzM5fQ.JGN1p8YIfR-M-5eQ-Ypy6Ima5cKA4VbfL2xMr2MgHm4';
+  // Récupérer le token à partir du localStorage
+  const token = localStorage.getItem('token');
 
-  fetch(`http://localhost:5678/api/works/${workId}`, {
+  // Convertir le token en nombre en utilisant parseInt
+  const parsedWorkId = parseInt(workId);
+  fetch(`http://localhost:5678/api/works/${parsedWorkId}`, {
     method: 'DELETE',
     headers: {
-      'Authorization': `Bearer ${token}`
+      'Authorization': `${token}`
     }
   })
     .then(response => {
@@ -424,7 +444,8 @@ function deleteWork(workId) {
     .catch(error => {
       console.error('Error deleting work:', error);
     });
-};
+
+}
 
 
 

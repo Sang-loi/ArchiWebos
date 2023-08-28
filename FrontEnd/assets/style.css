@@ -431,6 +431,7 @@ a:hover{
     border-radius: 2px;
     padding: 3px 4px;
 	font-size: 11px;
+	border: transparent;
 }
 
 .modal-wrapper form{
@@ -448,11 +449,3 @@ a:hover{
     top: 0px;
 	top: -30px;
 }
-
-
-
-
-
-
-
-
