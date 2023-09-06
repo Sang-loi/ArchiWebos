@@ -2,50 +2,54 @@
 <html lang="fr">
 <head>
 	<meta charset="UTF-8">
-	<title>Sophie Bluel - Architecte d'intérieur - Login</title>
+	<title>Sophie Bluel - Architecte d'intérieur</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
-	<link rel="stylesheet" href="./assets/style-login.css">
-	<script src="api-login.js"></script>
+	<link rel="stylesheet" href="./assets/style.css"> 
+    <script type="module" src="./api-login.js"></script> 
 </head>
 <body>
 <header>
 	<a href="index.html">
-		<h1>Sophie Bluel<span>Architecte d'intérieur</span></h1>
+		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	</a>
 	<nav>
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li>login</li>
+			<a href="index.html">
+				<li>login</li>
+			</a>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
 </header>
+
 <main>
-	<h2>Log In</h2>
-    <section>
-        <form action="" method="get">
-            <div id="mail">
-                <label for="name">E-mail</label>
-                <br><input type="email" name="email" id="email" required>
+    <section class="login">
+        <h2>Log In</h2>
+		<div class="alredyLogged__error">
+		</div>
+        <form action="" method="" class="login__form" onsubmit="return false">
+            <label for="email">E-mail</label>
+            <input type="email" name="email" id="email" required>
+            <div class="loginEmail__error">
             </div>
-            <div class="mdp">
-                <label for="mdp">Mot de passe</label>
-                <br><input type="text" name="mdp" id="mdp" required>
+            <label for="password">Mot de passe</label>
+            <input type="password" name="password" id="password" required>
+            <div class="loginMdp__error">
             </div>
-            <div class="connection">
-                <input type="submit" value="Se connecter">
-            </div>
-            <div class="forget">
-                <label for="forget">Mot de passe oublié</label>
-            </div>
+            <input type="submit" value="Se connecter" id="submit">
         </form>
+        <a href="">Mot de passe oublié</a>
     </section>
 </main>
+
+
+
 <footer>
 	<nav>
 		<ul>
