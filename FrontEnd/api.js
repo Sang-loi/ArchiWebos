@@ -330,7 +330,6 @@ const pictureFront = document.querySelector("#photo");
 const photoPreview = document.querySelector("#photo-preview");
 const icon = document.querySelector(".fa-regular.fa-image");
 const label = document.querySelector("label[for='photo']");
-const formGroupPhoto = document.querySelector(".form-group-photo");
 
 pictureFront.addEventListener("change", function () {
     let pictureStorage = pictureFront.files[0]; // Prend la première image du champ
@@ -343,10 +342,44 @@ pictureFront.addEventListener("change", function () {
         icon.style.display = "none";
         label.style.display = "none";
         pictureFront.style.display = "none";
-        formGroupPhoto.classList.remove("form-group-photo::after")
     }
 });
 
+
+// Sélectionnez les éléments du DOM
+const preview = document.getElementById("photo-preview");
+const titleInput = document.querySelector(".js-title");
+const categoryIdSelect = document.querySelector(".js-categoryId");
+const addWorkButton = document.querySelector(".js-add-work");
+
+// Désactivez le bouton initialement
+addWorkButton.disabled = true;
+
+// Fonction pour vérifier si les conditions sont remplies
+function checkConditions() {
+    const isPhotoFilled = preview.src !== "";
+    const isTitleFilled = titleInput.value.trim() !== "";
+    const isCategoryIdFilled = categoryIdSelect.value === "1" || categoryIdSelect.value === "2" || categoryIdSelect.value ===  "3";
+
+    if (isPhotoFilled && isTitleFilled && isCategoryIdFilled) {
+        addWorkButton.removeAttribute("disabled");
+    } else {
+        addWorkButton.setAttribute("disabled", "disabled"); // Désactiver le bouton si les conditions ne sont pas remplies
+    }
+}
+
+// Fonction pour activer ou désactiver le bouton en fonction des conditions
+function updateAddWorkButtonState() {
+    checkConditions(); // Appelez la fonction pour vérifier les conditions
+}
+
+// Écoutez les événements de changement dans les champs d'entrée
+preview.addEventListener("load", updateAddWorkButtonState);
+titleInput.addEventListener("input", updateAddWorkButtonState);
+categoryIdSelect.addEventListener("change", updateAddWorkButtonState);
+
+// Vérifiez également l'état initial au chargement de la page
+updateAddWorkButtonState();
 
 // Ajouter un projet
 async function addWork(event) {
@@ -355,15 +388,16 @@ async function addWork(event) {
     const title = document.querySelector(".js-title").value;
     const categoryId = document.querySelector(".js-categoryId").value;
     const image = document.querySelector(".js-image").files[0];
+    const submitButton = document.querySelector(".js-add-work");
+    const photoPreview = document.querySelector("#photo-preview");
 
-
-    if (title === "" || categoryId === "" || image === undefined) {
+    if (title === "" || categoryId === "" || photoPreview.src === "") {
         alert("Merci de remplir tous les champs");
         return;
     } else if (categoryId !== "1" && categoryId !== "2" && categoryId !== "3") {
         alert("Merci de choisir une catégorie valide");
-        return;
-        } else {
+        return;       
+    } else {
     try {
         const formData = new FormData();
         formData.append("title", title);
@@ -395,4 +429,4 @@ async function addWork(event) {
 
     catch (error) {
         console.log(error);
-}}}
+}}};

@@ -274,10 +274,10 @@ html {
 }
 
 .modale-projet-form input[type=submit]:hover {
-  color: #1D6154;
   background-color: white;
   scale: 1.05;
   cursor: pointer;
+  color: #1D6154;
 }
 
 /* ADMIN */
@@ -696,6 +696,12 @@ html {
   transition: all 0.5s ease;
 }
 
+.modale-projet-form input[type=submit]:disabled {
+  background-color:rgba(167, 167, 167, 1);
+  border: rgba(167, 167, 167, 1);
+  color: white;
+}
+
 .modale-projet-form::after {
   content: " ";
   border-top: 1px solid black;
@@ -779,4 +785,13 @@ footer nav ul {
   text-decoration: underline;
   margin-bottom: 100px;
   color: black;
+}
+
+.modale-close{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.js-add-work:disabled{
+  color:grey;
 }

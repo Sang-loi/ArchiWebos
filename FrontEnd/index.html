@@ -27,9 +27,11 @@
 
 <aside id="modale" class="modale" aria-hidden="true" style="display: none;">
 	<div class="modale-wrapper js-modale-stop">
-		<a href="" class="js-modale-close">
-			<i class="fa-solid fa-xmark"></i>
-		</a>
+		<div class="modale-close">
+			<a href="" class="js-modale-close">
+				<i class="fa-solid fa-xmark"></i>
+			</a>
+		</div>
 		<h2>Galerie photo</h2>
 		<div class="js-admin-projets">
 			<!-- photos générées en js -->
@@ -69,20 +71,21 @@
 			<div class="form-group-id">
 				<label for="categorie">Catégorie</label>
 				<select name="categorie" id="categorie" class="js-categoryId">
+					<option value="0"></option>
 					<option value="1">Objets</option>
 					<option value="2">Appartements</option>
 					<option value="3">Hôtels & restaurants</option>
 				</select>
 			</div>
 
-			<input type="submit" class="js-add-work" value="Ajouter le projet">
+			<input type="submit" class="js-add-work" value="Valider">
 		</form>
 	</div>
 </aside>
 <!-- fin module et modale admin -->
 
 <header>
-	<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
 			<a href="#portfolio">
